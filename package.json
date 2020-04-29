@@ -1,5 +1,5 @@
 {
-  "name": "state-store",
+  "name": "@hrimsoft/state-store",
   "version": "1.0.0",
   "description": "centralized js-objects store",
   "main": "state-store.js",
