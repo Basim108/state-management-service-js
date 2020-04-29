@@ -5,19 +5,19 @@
 
 This is a centralized object store that works in the browser and nodejs.
 # installing
-`npm install state-store --save`
+`npm install @hrimsoft/state-store --save`
 or
-`yarn add state-store`
+`yarn add @hrimsoft/state-store`
 # usage
 ## Putting value into the storage:
 ```
-import stateStore from 'state-store';
+import stateStore from '@hrimsoft/state-store';
 
 stateStore.register('key', 10);
 ```
 ## Getting value from the storage
 ```
-import stateStore from 'state-store';
+import stateStore from '@hrimsoft/state-store';
 
 // getting a value by key
 let value = stateStore.resolve('key');
