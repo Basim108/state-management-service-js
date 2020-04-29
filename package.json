@@ -1,0 +1,10 @@
+{
+  "name": "state-store",
+  "version": "1.0.0",
+  "description": "centralized js-objects store",
+  "main": "state-store.js",
+  "repository": "https://github.com/Basim108/state-store-js",
+  "author": "Basim Al-Jawahery",
+  "license": "MIT",
+  "private": false
+}
