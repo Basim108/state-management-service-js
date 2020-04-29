@@ -1,7 +1,7 @@
-# state-store-js  
+# state-store.js  
 ![GitHub](https://img.shields.io/github/license/basim108/state-store-js)
-![npm](https://img.shields.io/npm/v/state-store)
-![npm](https://img.shields.io/npm/dy/state-store)
+![npm](https://img.shields.io/npm/v/@hrimsoft/state-store)
+![npm](https://img.shields.io/npm/dy/@hrimsoft/state-store)
 
 This is a centralized object store that works in the browser and nodejs.
 # installing
