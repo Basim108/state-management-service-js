@@ -1,10 +1,27 @@
 {
   "name": "@hrimsoft/state-store",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "centralized js-objects store",
-  "main": "state-store.js",
+  "main": "dist/state-store.js",
   "repository": "https://github.com/Basim108/state-store-js",
   "author": "Basim Al-Jawahery",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "build": "gulp",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@jest/globals": "^26.0.1",
+    "babel-jest": "^26.0.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-rimraf": "^1.0.0",
+    "gulp-uglify": "^3.0.2",
+    "jest": "^26.0.1",
+    "uuid": "^8.0.0"
+  }
 }

@@ -91,8 +91,8 @@ function getObjectByName(namespace) {
 }
 
 
-/** @summary Check input key, devide it to name parts.
- * @param {string} key - string value, could be devided by separator symbol.
+/** @summary Check input key, split it to name parts.
+ * @param {string} key - string value, could be split by separator symbol.
  * @returns {string[]} the array of name parts. if key name1.name2, the array will be returned ['name1', 'name2']
  */
 function convertKeyToNamespaces(key) {
@@ -100,30 +100,49 @@ function convertKeyToNamespaces(key) {
         console.error(_constants.consolePrefix + _constants.errors.keyIsEmpty);
         return null;
     }
-    if (typeof key !== 'string') {
-        console.error(_constants.consolePrefix + _constants.errors.keyIsNotString);
-        return null;
+    if (typeof key != 'string') {
+        if (typeof key == 'number')
+            key = _constants.numberPrefix + key;
+        else {
+            consoleError({
+                message: _constants.consolePrefix + _constants.errors
+                    .keyIsNotString
+                    .replace('{type}', typeof key),
+                context: {
+                    key: key,
+                    keyType: typeof (key)
+                }
+            });
+            return null;
+        }
     }
     let names = key.split(_constants.namespace.separator);
     let i, len = names.length;
     for (i = 0; i < len; i++) {
-        if (isNullOrEmpty(names[i])) {
+        let name = names[i];
+        if (isNullOrEmpty(name)) {
             consoleError({
                 message: _constants.consolePrefix + _constants.errors.keyContainsDoubleSeparator,
                 context: {
                     name: name,
                     i: i,
-                    namespace: namespace
+                    key: key
                 }
             });
             return null;
         }
-        if (!isNaN(parseInt(names[i]))) {
+        if (typeof name === 'string')
+            continue;
+        if (typeof name === 'number')
+            names[i] = _constants.numberPrefix + name;
+        else {
             consoleError({
-                message: _constants.consolePrefix + _constants.errors.keyIsNotString,
+                message: _constants.consolePrefix + _constants.errors.keyIsNotString.replace('{key}', name).replace('{type}', typeof name),
                 context: {
                     name: name,
-                    i: i
+                    nameType: typeof name,
+                    i: i,
+                    key: key
                 }
             });
             return null;
@@ -133,27 +152,28 @@ function convertKeyToNamespaces(key) {
 }
 
 
-/** Tree kind dictionary for registred values.
- *  key: the name, by which the value was registred,
- *  value: registred value.
+/** Tree kind dictionary for registered values.
+ *  key: the name, by which the value was registered,
+ *  value: registered value.
  * @example
  * // If we want register value of some url 'https://mycompany.com/businessobject/edit/'
- * // and then in diferent part of program resolve this value {@link resolve} be key 'urls.businessobject.edit',
+ * // and then in different part of program resolve this value {@link resolve} be key 'urls.businessobject.edit',
  * // then into the register method {@link register} will be created next arrays:
  * // _container['urls']['businessobject']['edit'] = 'https://mycompany.com/businessobject/edit/'  */
 let _container = {};
 
 let _constants = {
-    consolePrefix: 'healbe.ioc: ',
+    consolePrefix: 'StateStore: ',
+    numberPrefix: '25986c812c734c-',
     namespace: {
         separator: '.'
     },
     errors: {
         objectNotFound: 'Object not found.',
         registerCanceled: 'Registration value in IOC failed',
-        keyIsEmpty: 'Ключ по которому регистрируется/резолвиться объект пустой.',
-        keyIsNotString: 'Неверный тип ключа по которому регистрируется/резолвиться объект.',
-        keyContainsDoubleSeparator: 'Неверный ключ по которому регистрируется/резолвиться объект. Содержит два разделителя подряд.'
+        keyIsEmpty: 'The key is empty.',
+        keyIsNotString: "Wrong type of the key {key}: {type}, required type is string.",
+        keyContainsDoubleSeparator: 'Wrong key: it contains two or more periods followed one after another'
     }
 };
 
