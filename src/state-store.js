@@ -37,16 +37,6 @@ class StateStore {
         if (isNullOrEmpty(namespace))
             return;
         let registeredValue = getObjectByName(namespace);
-        if (registeredValue === undefined) {
-            return consoleError({
-                message: _constants.consolePrefix + _constants.errors.objectNotFound,
-                context: {
-                    key: key,
-                    namespace: namespace,
-                    registeredValue: registeredValue
-                }
-            });
-        }
         return registeredValue;
     }
 }
@@ -61,8 +51,8 @@ function isNullOrEmpty(arg) {
     return !arg.length;
 }
 
-function consoleError(errorInfo) {
-    console.error(errorInfo.message, errorInfo.context);
+function log(info) {
+    console.info(info.message, info.context);
 }
 
 /** @summary Geting object by his full name
@@ -77,7 +67,7 @@ function getObjectByName(namespace) {
         let name = namespace[i];
         currentContainer = currentContainer[name];
         if (currentContainer === undefined) {
-            return consoleError({
+            return log({
                 message: _constants.consolePrefix + _constants.errors.objectNotFound,
                 context: {
                     name: name,
@@ -104,7 +94,7 @@ function convertKeyToNamespaces(key) {
         if (typeof key == 'number')
             key = _constants.numberPrefix + key;
         else {
-            consoleError({
+            log({
                 message: _constants.consolePrefix + _constants.errors
                     .keyIsNotString
                     .replace('{type}', typeof key),
@@ -121,7 +111,7 @@ function convertKeyToNamespaces(key) {
     for (i = 0; i < len; i++) {
         let name = names[i];
         if (isNullOrEmpty(name)) {
-            consoleError({
+            log({
                 message: _constants.consolePrefix + _constants.errors.keyContainsDoubleSeparator,
                 context: {
                     name: name,
@@ -136,7 +126,7 @@ function convertKeyToNamespaces(key) {
         if (typeof name === 'number')
             names[i] = _constants.numberPrefix + name;
         else {
-            consoleError({
+            log({
                 message: _constants.consolePrefix + _constants.errors.keyIsNotString.replace('{key}', name).replace('{type}', typeof name),
                 context: {
                     name: name,

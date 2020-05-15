@@ -1,6 +1,6 @@
 {
   "name": "@hrimsoft/state-store",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "centralized js-objects store",
   "main": "dist/state-store.js",
   "repository": "https://github.com/Basim108/state-store-js",
